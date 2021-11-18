@@ -46,7 +46,7 @@ INSTALLED_APPS = [
 
     # Third Party allauth
     'django_summernote',
-
+    'django_social_share',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',

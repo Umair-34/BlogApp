@@ -1,0 +1,346 @@
+{% extends 'base.html' %}
+
+{% load static social_share %}
+
+{% block content %}
+
+    <!--blog-psots-->
+    <section id="single-post">
+        <div class="container">
+            <article class="standard-post-format grid-box">
+                <div class="single-post-head text-center">
+                    <div class="post-title">
+                        <h2>{{ object.title }}</h2>
+                    </div>
+                    <div class="post-meta-elements">
+                        <div class="meta-post-author">
+                            <i class="fa fa-user"></i><a href="#">
+                            {{ object.author.first_name }}{{ object.author.last_name }}</a>
+                        </div>
+                        <div class="meta-post-cat">
+                            {% for tag in object.tags.all %}
+                                {% if forloop.counter == 1 %}
+                                    <i class="fa fa-tags"></i>
+                                {% endif %}
+                                <a href="#">{{ tag }}</a>
+                            {% endfor %}
+                        </div>
+                        <div class="meta-post-date">
+                            <i class="fa fa-clock-o"></i>{{ object.post_date }}
+                        </div>
+                        <div class="meta-post-commetns">
+                            <i class="fa fa-arrow-up"></i><a href="#">{{ object.total_upvote }}</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="myCarousel" class="carousel slide post-slider">
+                    <div class="carousel-inner">
+                        <div class="item active"><img alt="Blog-Image" src="{{ object.img.url }}"></div>
+                        {#                        <div class="item"><img alt="car1" src="{% static 'images/gallery-img-2.jpg' %}"></div>#}
+                        {#                        <div class="item"><img alt="car1" src="{% static 'images/gallery-img-3.jpg' %}"></div>#}
+                    </div>
+                    {#                    <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span#}
+                    {#                            class="glyphicon glyphicon-chevron-left"></span></a>#}
+                    {#                    <a class="right carousel-control" href="#myCarousel" data-slide="next"><span#}
+                    {#                            class="glyphicon glyphicon-chevron-right"></span></a>#}
+                </div>
+
+                <div class="the-post">
+                    <div class="post_content">
+                        {{ object.blog|safe }}
+                        <div style="margin-bottom: 1%; margin-top: 1%">
+                            <form method="post" action="{% url 'core:UpvoteView' object.slug %}">
+                                {% csrf_token %}
+                                <button name="upvote" id="upvote" type="submit" class="btn active_btn"
+                                        value="{{ object.slug }}"><i class="fa fa-arrow-up"></i> Upvote
+                                </button>
+
+                            </form>
+                        </div>
+                        <div class="post_tag_share">
+                            <div class="post_tags">
+                                <h5>Tags</h5>
+                                {% for tag in object.tags.all %}
+                                    <a href="#">{{ tag }}</a>
+                                {% endfor %}
+
+                            </div>
+                            <div class="blog-share-button ">
+                                <h5><i class="fa fa-share-alt"></i> Share</h5>
+                                <ul>
+                                    <li>{% post_to_facebook link %}</li>
+                                    <li>{% post_to_twitter link %}</li>
+                                    <li>{% post_to_linkedin link %}</li>
+                                    <li>{% post_to_reddit link %}</li>
+                                    <li>{% post_to_whatsapp link %}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            {% if related_posts.count > 0 %}
+                <!--Related Post-->
+                <div class="all_related_post white_bg padding_4x4_30">
+                    <h3>Related <em>Post</em></h3>
+                    {% for object in related_posts %}
+                        <div class="col-md-4 col-sm-6">
+                            <article class="related_posts">
+                                <div class="related_post_image">
+                                    <a href="#"> <img src="{{ object.img.url }}" alt="image"> </a>
+                                </div>
+                                <div class="related_post_text">
+                                    <div class="related_post_title">
+                                        <h5><a href="#">{{ object.title }}</a></h5>
+                                    </div>
+                                    <div class="post-meta-elements">
+                                        <div class="meta-post-author">
+                                            <i class="fa fa-user"></i><a href="#">
+                                            {{ object.author.first_name }}{{ object.author.last_name }}</a>
+                                        </div>
+                                        <div class="meta-post-cat">
+                                            {% for tag in object.tags.all %}
+                                                {% if forloop.counter == 1 %}
+                                                    <i class="fa fa-tags"></i>
+                                                {% endif %}
+                                                <a href="#">{{ tag }}</a>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    {% endfor %}
+                </div>
+                <!--/Related Post-->
+            {% endif %}
+            <!--comments-->
+            <div class="all_comments">
+                <h3>Comments <em>{{ object.total_comment }}</em></h3>
+                <ul>
+                    {% for comments in comments %}
+                        <li class="comment_list">
+                            <div class="comment_author_avatar">
+                                <img src="{% static 'images/populat-post-img-4.jpg' %}" alt="image">
+                            </div>
+
+                            <div class="comment_content">
+                                <div class="comment_info" id="media-body">
+                                    {% if comments.sender.first_name|length %}
+                                        <h6 class="comment_author">
+                                            {{ comments.sender.first_name }}{{ comments.sender.last_name }}<a
+                                                href="#"></a></h6>
+                                    {% else %}
+                                        <h6 class="comment_author" id = 'commenter'>Unknown<a href="#"></a></h6>
+                                    {% endif %}
+                                    <span class="comment_date" id="created_at">{{ comments.created_at }}</span>
+                                </div>
+                                <div class="comment_text_wrap">
+                                    <div class="comment_text" id = 'comment'><p>{{ comments.message }}</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <!--/comments-->
+            <div class="media mb-4">
+                {#                <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">#}
+                <div class="media-body" id='media-body'>
+                    <h5 class="mt-0" id='commenter'>{{ comments.sender.first_name }}</h5>
+                    <p id='comment'>{{ comment.message }}</p>
+                </div>
+            </div>
+            <div class="psot_comment">
+                <h3>Leave a <em>Reply</em></h3>
+                <div class="commentform">
+                    <form method="post" id="commentForm">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <textarea name="message" tabindex="4" rows="7" class="required" id="message"
+                                      placeholder="Your message" required></textarea>
+                        </div>
+                        {% if not request.user.is_authenticated %}
+                            <div class="form-group">
+                                <input type="email" aria-required="true" size="30" value="" placeholder="Email *"
+                                       name="email" id="email" required>
+                            </div>
+                        {% endif %}
+                        <div class="form-group">
+                            <input type="submit" value="Post comment" class="submit btn active_btn" id="submit"
+                                   name="submit">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <!--/blog-posts-->
+
+
+
+    <!--popular-psots-->
+    <section id="popular-posts" class="padding_none">
+        <div class="text-center">
+            <div class="sect-heading"><p><i class="fa fa-rocket"></i>Popular Posts</p></div>
+        </div>
+
+        <div class="col-sm-4 col-md-2">
+            <div class="popular_posts">
+                <div class="populat_post_image">
+                    <a href="#"> <img src="{% static 'images/populat-post-img-1.jpg' %}" alt="image"> </a>
+                </div>
+                <div class="popular_posts_text">
+                    <div class="populat_post_title">
+                        <h5><a href="#">Industry's <em>standard dummy text</em></a></h5>
+                    </div>
+                    <div class="post-meta-elements">
+                        <div class="meta-post-author">
+                            <i class="fa fa-user"></i><a href="#">Admin</a>
+                        </div>
+                        <div class="meta-post-cat">
+                            <i class="fa fa-tags"></i><a href="#">Motivation</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4 col-md-2">
+            <div class="popular_posts">
+                <div class="populat_post_image">
+                    <a href="#"> <img src="{% static 'images/populat-post-img-2.jpg' %}" alt="image"> </a>
+                </div>
+                <div class="popular_posts_text">
+                    <div class="populat_post_title">
+                        <h5><a href="#">Industry's <em>standard dummy text</em></a></h5>
+                    </div>
+                    <div class="post-meta-elements">
+                        <div class="meta-post-author">
+                            <i class="fa fa-user"></i><a href="#">Admin</a>
+                        </div>
+                        <div class="meta-post-cat">
+                            <i class="fa fa-tags"></i><a href="#">Lifestyle</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4 col-md-2">
+            <div class="popular_posts">
+                <div class="populat_post_image">
+                    <a href="#"> <img src="{% static 'images/populat-post-img-3.jpg' %}" alt="image"> </a>
+                </div>
+                <div class="popular_posts_text">
+                    <div class="populat_post_title">
+                        <h5><a href="#">This is the <em>exact time you left</em></a></h5>
+                    </div>
+                    <div class="post-meta-elements">
+                        <div class="meta-post-author">
+                            <i class="fa fa-user"></i><a href="#">Admin</a>
+                        </div>
+                        <div class="meta-post-cat">
+                            <i class="fa fa-tags"></i><a href="#">Photography</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4 col-md-2">
+            <div class="popular_posts">
+                <div class="populat_post_image">
+                    <a href="#"> <img src="{% static 'images/populat-post-img-4.jpg' %}" alt="image"> </a>
+                </div>
+                <div class="popular_posts_text">
+                    <div class="populat_post_title">
+                        <h5><a href="#">This is the <em>exact time you left</em></a></h5>
+                    </div>
+                    <div class="post-meta-elements">
+                        <div class="meta-post-author">
+                            <i class="fa fa-user"></i>B<a href="#">Admin</a>
+                        </div>
+                        <div class="meta-post-cat">
+                            <i class="fa fa-tags"></i><a href="#">Fashion</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4 col-md-2">
+            <div class="popular_posts">
+                <div class="populat_post_image">
+                    <a href="#"> <img src="{% static 'images/populat-post-img-5.jpg' %}" alt="image"> </a>
+                </div>
+                <div class="popular_posts_text">
+                    <div class="populat_post_title">
+                        <h5><a href="#">Maiores explicabo <em>beatae omnis</em> </a></h5>
+                    </div>
+                    <div class="post-meta-elements">
+                        <div class="meta-post-author">
+                            <i class="fa fa-user"></i><a href="#">Admin</a>
+                        </div>
+                        <div class="meta-post-cat">
+                            <i class="fa fa-tags"></i><a href="#">Collection</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4 col-md-2">
+            <div class="popular_posts">
+                <div class="populat_post_image">
+                    <a href="#"> <img src="{% static 'images/populat-post-img-6.jpg' %}" alt="image"> </a>
+                </div>
+                <div class="popular_posts_text">
+                    <div class="populat_post_title">
+                        <h5><a href="#">Beatae omnis <em>modi laboriosam</em></a></h5>
+                    </div>
+                    <div class="post-meta-elements">
+                        <div class="meta-post-author">
+                            <i class="fa fa-user"></i><a href="#">Admin</a>
+                        </div>
+                        <div class="meta-post-cat">
+                            <i class="fa fa-tags"></i><a href="#">Lifestyle</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!--/popular-psots-->
+    <script>
+        let form = document.getElementById('commentForm')
+        let commentContainer = document.getElementById('media-body')
+
+        form.addEventListener('submit', stopReload)
+
+        function stopReload(e) {
+            e.preventDefault()
+            let commenter = document.createElement('h5')
+            let comment = document.createElement('p')
+            commenter.classList.add('mt-0')
+            $.ajax({
+                type: "POST",
+                url: "{% url 'core:DetailView' object.slug %}",
+                data: $("#commentForm").serialize(),
+                datatype: "json",
+                success: function (data) {
+                    commenter.innerText = data.commenter
+                    comment.innerText = data.msg
+                    commentContainer.appendChild(commenter)
+                    commentContainer.appendChild(comment)
+                    form.reset()
+                }
+            })
+        }
+    </script>
+{% endblock %}

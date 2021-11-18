@@ -108,7 +108,7 @@
                                     <div class="post_content">
                                         {{ object.blog|safe|truncatewords_html:40 }}
                                         <div class="readmore">
-                                            <a href="#" class="btn">Continue Reading..</a>
+                                            <a href="{{ object.get_absolute_url }}" class="btn">Continue Reading..</a>
                                         </div>
                                     </div>
                                 </div>

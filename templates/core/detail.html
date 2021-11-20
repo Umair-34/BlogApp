@@ -29,7 +29,7 @@
                             <i class="fa fa-clock-o"></i>{{ object.post_date }}
                         </div>
                         <div class="meta-post-commetns">
-                            <i class="fa fa-arrow-up"></i><a href="#">{{ object.total_upvote }}</a>
+                            <i class="fa fa-arrow-up"></i><a href="#" id="upvote_data">{{ object.total_upvote }}</a>
                         </div>
                     </div>
                 </div>
@@ -49,15 +49,13 @@
                 <div class="the-post">
                     <div class="post_content">
                         {{ object.blog|safe }}
-                        <div style="margin-bottom: 1%; margin-top: 1%">
-                            <form method="post" action="{% url 'core:UpvoteView' object.slug %}">
-                                {% csrf_token %}
-                                <button name="upvote" id="upvote" type="submit" class="btn active_btn"
-                                        value="{{ object.slug }}"><i class="fa fa-arrow-up"></i> Upvote
+                        {% if request.user.is_authenticated %}
+                            <div style="margin-bottom: 1%; margin-top: 1%">
+                                <button class="btn active_btn"
+                                        onclick="location.href='{% url 'core:UpvoteView' object.slug %}'">Upvote
                                 </button>
-
-                            </form>
-                        </div>
+                            </div>
+                        {% endif %}
                         <div class="post_tag_share">
                             <div class="post_tags">
                                 <h5>Tags</h5>
@@ -116,65 +114,61 @@
                 <!--/Related Post-->
             {% endif %}
             <!--comments-->
-            <div class="all_comments">
-                <h3>Comments <em>{{ object.total_comment }}</em></h3>
-                <ul>
-                    {% for comments in comments %}
-                        <li class="comment_list">
-                            <div class="comment_author_avatar">
-                                <img src="{% static 'images/populat-post-img-4.jpg' %}" alt="image">
-                            </div>
+            <div id="append" class="all_comments">
+                <h3>Comments <em>{{ comments|length }}</em></h3>
+                {% if comments|length %}
+                    <ul style="width: 100%; height: 250px; overflow: auto">
+                        {% for comments in comments %}
+                            <li class="comment_list">
+                                <div class="row">
+                                    <div class="comment_author_avatar" id="media-body">
+                                        <img src="{% static 'images/populat-post-img-4.jpg' %}" alt="image">
+                                    </div>
 
-                            <div class="comment_content">
-                                <div class="comment_info" id="media-body">
-                                    {% if comments.sender.first_name|length %}
-                                        <h6 class="comment_author">
-                                            {{ comments.sender.first_name }}{{ comments.sender.last_name }}<a
-                                                href="#"></a></h6>
-                                    {% else %}
-                                        <h6 class="comment_author" id = 'commenter'>Unknown<a href="#"></a></h6>
-                                    {% endif %}
-                                    <span class="comment_date" id="created_at">{{ comments.created_at }}</span>
-                                </div>
-                                <div class="comment_text_wrap">
-                                    <div class="comment_text" id = 'comment'><p>{{ comments.message }}</p>
+                                    <div class="comment_content">
+                                        <div class="comment_info">
+                                            {% if comments.sender.first_name|length %}
+                                                <h6 class="comment_author">
+                                                    {{ comments.sender.first_name }}{{ comments.sender.last_name }}<a
+                                                        href="#"></a></h6>
+                                            {% else %}
+                                                <h6 class="comment_author" id='commenter'>Unknown<a href="#"></a></h6>
+                                            {% endif %}
+                                            <span class="comment_date" id="created_at">{{ comments.created_at }}</span>
+                                        </div>
+                                        <div class="comment_text_wrap">
+                                            <div class="comment_text" id='comment'><p>{{ comments.message }}</p>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
-
-                            </div>
-                        </li>
-                    {% endfor %}
-                </ul>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
             </div>
             <!--/comments-->
-            <div class="media mb-4">
-                {#                <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">#}
-                <div class="media-body" id='media-body'>
-                    <h5 class="mt-0" id='commenter'>{{ comments.sender.first_name }}</h5>
-                    <p id='comment'>{{ comment.message }}</p>
-                </div>
-            </div>
+
             <div class="psot_comment">
                 <h3>Leave a <em>Reply</em></h3>
-                <div class="commentform">
-                    <form method="post" id="commentForm">
-                        {% csrf_token %}
-                        <div class="form-group">
+                <form method="post" id="commentForm">
+                    {% csrf_token %}
+                    <div class="form-group">
                             <textarea name="message" tabindex="4" rows="7" class="required" id="message"
                                       placeholder="Your message" required></textarea>
-                        </div>
-                        {% if not request.user.is_authenticated %}
-                            <div class="form-group">
-                                <input type="email" aria-required="true" size="30" value="" placeholder="Email *"
-                                       name="email" id="email" required>
-                            </div>
-                        {% endif %}
+                    </div>
+                    {% if not request.user.is_authenticated %}
                         <div class="form-group">
-                            <input type="submit" value="Post comment" class="submit btn active_btn" id="submit"
-                                   name="submit">
+                            <input type="email" aria-required="true" size="30" value="" placeholder="Email *"
+                                   name="email" id="email" required>
                         </div>
-                    </form>
-                </div>
+                    {% endif %}
+                    <div class="form-group">
+                        <input type="submit" value="Post comment" class="submit btn active_btn" id="submit"
+                               name="submit">
+                    </div>
+                </form>
             </div>
 
         </div>
@@ -317,30 +311,25 @@
 
     </section>
     <!--/popular-psots-->
+
     <script>
         let form = document.getElementById('commentForm')
-        let commentContainer = document.getElementById('media-body')
 
         form.addEventListener('submit', stopReload)
 
         function stopReload(e) {
             e.preventDefault()
-            let commenter = document.createElement('h5')
-            let comment = document.createElement('p')
-            commenter.classList.add('mt-0')
             $.ajax({
                 type: "POST",
                 url: "{% url 'core:DetailView' object.slug %}",
                 data: $("#commentForm").serialize(),
                 datatype: "json",
-                success: function (data) {
-                    commenter.innerText = data.commenter
-                    comment.innerText = data.msg
-                    commentContainer.appendChild(commenter)
-                    commentContainer.appendChild(comment)
+                success: function () {
+                    $("#append").load(location.href + " #append");
                     form.reset()
                 }
             })
         }
     </script>
+
 {% endblock %}

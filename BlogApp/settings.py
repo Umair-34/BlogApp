@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'taggit',
     'debug_toolbar',
+    'hitcount',
 ]
 
 MIDDLEWARE = [

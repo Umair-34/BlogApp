@@ -25,10 +25,14 @@ class BlogPost(models.Model):
     updated_at = models.DateTimeField(auto_now_add=True)
     category = models.ForeignKey(Categories, blank=True, on_delete=models.PROTECT, related_name='category_set')
     upvote = models.ManyToManyField(User, related_name='blog_liked', blank=True)
+    Approved = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         super(BlogPost, self).save(*args, **kwargs)
+
+    def total_upvote(self):
+        return self.upvote.count()
 
     def total_upvote(self):
         return self.upvote.count()
@@ -41,7 +45,7 @@ class BlogPost(models.Model):
 
 
 class Comment(models.Model):
-    post = models.ForeignKey(BlogPost, on_delete=models.CASCADE, related_name= 'comments')
+    post = models.ForeignKey(BlogPost, on_delete=models.CASCADE, related_name='comments')
     sender = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     sender_email = models.EmailField(null=True, blank=True)
     message = models.TextField()

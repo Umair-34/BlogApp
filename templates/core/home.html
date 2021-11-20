@@ -89,17 +89,17 @@
                                                 href="#">{{ object.author.first_name }} {{ object.author.last_name }}</a>
                                         </div>
 
-                                        <div id="tags"  class="meta-post-cat">
+                                        <div id="tags" class="meta-post-cat">
 
                                             {% for tag in object.tags.all %}
                                                 {% if forloop.counter == 1 %}
-                                                <i class="fa fa-tags"></i>
+                                                    <i class="fa fa-tags"></i>
                                                 {% endif %}
                                                 <a href="#">{{ tag }}</a>,
                                             {% endfor %}
                                         </div>
                                         <div class="meta-post-date">
-                                            <i class="fa fa-clock-o"></i>{{ object.post_date}}
+                                            <i class="fa fa-clock-o"></i>{{ object.post_date }}
                                         </div>
                                         <div class="meta-post-commetns">
                                             <i class="fa fa-arrow-up"></i><a href="#">{{ object.total_upvote }}</a>
@@ -228,35 +228,30 @@
                         <div class="sidebar_widget grid-box widgetbox">
                             <h6 class="sidebar-title"><span>Categories</span></h6>
                             <div class="psot_categories">
-                                <ul>
-                                    <li><a href="#">Collection</a></li>
-                                    <li><a href="#">Fashion</a></li>
-                                    <li><a href="#">Lifestyle</a></li>
-                                    <li><a href="#">Motivation</a></li>
-                                    <li><a href="#">Photography</a></li>
-                                    <li><a href="#">Travel</a></li>
-                                </ul>
+                                {% if category|length >= 5 %}
+                                    <ul style="width: 100%; height: 250px; overflow: auto">
+                                        {% for category in category %}
+                                            <li><a href="{% url 'core:CategoryView' category.category_name %}">{{ category.category_name }}</a></li>
+                                        {% endfor %}
+
+                                    </ul>
+                                {% else %}
+                                    <ul>
+                                        {% for category in category %}
+                                            <li><a href="{% url 'core:CategoryView' category.category_name %}">{{ category.category_name }}</a></li>
+                                        {% endfor %}
+
+                                    </ul>
+                                {% endif %}
                             </div>
                         </div>
 
                         <div class="sidebar_widget grid-box widgetbox">
                             <h6 class="sidebar-title"><span>Tags</span></h6>
                             <div class="post_tags">
-                                <a href="#">Collection</a>
-                                <a href="#">Fashion</a>
-                                <a href="#">Lifestyle</a>
-                                <a href="#">Motivation</a>
-                                <a href="#">Photography</a>
-                                <a href="#">Spring</a>
-                                <a href="#">Photography</a>
-                                <a href="#">You</a>
-                                <a href="#">Link</a>
-                                <a href="#">Flatness</a>
-                                <a href="#">Walk</a>
-                                <a href="#">News</a>
-                                <a href="#">Lifestyle</a>
-                                <a href="#">Video</a>
-                                <a href="#">Audio</a>
+                                {% for tags in tags %}
+                                <a href="{% url 'core:TagView' tags.slug %}">{{ tags.name }}</a>
+                                {% endfor %}
                             </div>
                         </div>
 
@@ -268,138 +263,5 @@
     </section>
     <!--/blog-posts-->
 
-    <!--popular-psots-->
-    <section id="popular-posts" class="padding_none">
-        <div class="text-center">
-            <div class="sect-heading"><p><i class="fa fa-rocket"></i>Popular Posts</p></div>
-        </div>
 
-        <div class="col-sm-4 col-md-2">
-            <div class="popular_posts">
-                <div class="populat_post_image">
-                    <a href="#"> <img src="{% static 'images/populat-post-img-1.jpg' %}" alt="image"> </a>
-                </div>
-                <div class="popular_posts_text">
-                    <div class="populat_post_title">
-                        <h5><a href="#">Industry's <em>standard dummy text</em></a></h5>
-                    </div>
-                    <div class="post-meta-elements">
-                        <div class="meta-post-author">
-                            <i class="fa fa-user"></i><a href="#">Admin</a>
-                        </div>
-                        <div class="meta-post-cat">
-                            <i class="fa fa-tags"></i><a href="#">Motivation</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4 col-md-2">
-            <div class="popular_posts">
-                <div class="populat_post_image">
-                    <a href="#"> <img src="{% static 'images/populat-post-img-2.jpg' %}" alt="image"> </a>
-                </div>
-                <div class="popular_posts_text">
-                    <div class="populat_post_title">
-                        <h5><a href="#">Industry's <em>standard dummy text</em></a></h5>
-                    </div>
-                    <div class="post-meta-elements">
-                        <div class="meta-post-author">
-                            <i class="fa fa-user"></i><a href="#">Admin</a>
-                        </div>
-                        <div class="meta-post-cat">
-                            <i class="fa fa-tags"></i><a href="#">Lifestyle</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4 col-md-2">
-            <div class="popular_posts">
-                <div class="populat_post_image">
-                    <a href="#"> <img src="{% static 'images/populat-post-img-3.jpg' %}" alt="image"> </a>
-                </div>
-                <div class="popular_posts_text">
-                    <div class="populat_post_title">
-                        <h5><a href="#">This is the <em>exact time you left</em></a></h5>
-                    </div>
-                    <div class="post-meta-elements">
-                        <div class="meta-post-author">
-                            <i class="fa fa-user"></i><a href="#">Admin</a>
-                        </div>
-                        <div class="meta-post-cat">
-                            <i class="fa fa-tags"></i><a href="#">Photography</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4 col-md-2">
-            <div class="popular_posts">
-                <div class="populat_post_image">
-                    <a href="#"> <img src="{% static 'images/populat-post-img-4.jpg' %}" alt="image"> </a>
-                </div>
-                <div class="popular_posts_text">
-                    <div class="populat_post_title">
-                        <h5><a href="#">This is the <em>exact time you left</em></a></h5>
-                    </div>
-                    <div class="post-meta-elements">
-                        <div class="meta-post-author">
-                            <i class="fa fa-user"></i>B<a href="#">Admin</a>
-                        </div>
-                        <div class="meta-post-cat">
-                            <i class="fa fa-tags"></i><a href="#">Fashion</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4 col-md-2">
-            <div class="popular_posts">
-                <div class="populat_post_image">
-                    <a href="#"> <img src="{% static 'images/populat-post-img-5.jpg' %}" alt="image"> </a>
-                </div>
-                <div class="popular_posts_text">
-                    <div class="populat_post_title">
-                        <h5><a href="#">Maiores explicabo <em>beatae omnis</em> </a></h5>
-                    </div>
-                    <div class="post-meta-elements">
-                        <div class="meta-post-author">
-                            <i class="fa fa-user"></i><a href="#">Admin</a>
-                        </div>
-                        <div class="meta-post-cat">
-                            <i class="fa fa-tags"></i><a href="#">Collection</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4 col-md-2">
-            <div class="popular_posts">
-                <div class="populat_post_image">
-                    <a href="#"> <img src="{% static 'images/populat-post-img-6.jpg' %}" alt="image"> </a>
-                </div>
-                <div class="popular_posts_text">
-                    <div class="populat_post_title">
-                        <h5><a href="#">Beatae omnis <em>modi laboriosam</em></a></h5>
-                    </div>
-                    <div class="post-meta-elements">
-                        <div class="meta-post-author">
-                            <i class="fa fa-user"></i><a href="#">Admin</a>
-                        </div>
-                        <div class="meta-post-cat">
-                            <i class="fa fa-tags"></i><a href="#">Lifestyle</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </section>
-    <!--/popular-psots-->
 {% endblock %}

@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <!--blog-psots-->
+    <section id="posts">
+        <div class="container">
+            <div class="category_heading text-center">
+                <h1>Blogs Related to <em>{{ slug }}</em></h1>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="two-col-sidebar">
+                        {% for object in page.object_list %}
+                            <article class="standard-post-format grid-box">
+                                <div class="post-featured-image">
+                                    <a href="#"><img style="width: 100%; height: 276px" src="{{ object.img.url }}"
+                                                     alt="image"></a>
+                                </div>
+
+                                <div class="the-post">
+                                    <div class="post-title">
+                                        {#                                        <h2><a href="#">Inside The Garden & <em>Blooming Flowers</em></a></h2>#}
+                                        <h2><a href="#">{{ object.title }}</a></h2>
+                                    </div>
+                                    <div class="post-meta-elements">
+                                        <div class="meta-post-author">
+                                            <i class="fa fa-user"></i><a
+                                                href="#">{{ object.author.first_name }} {{ object.author.last_name }}</a>
+                                        </div>
+
+                                        <div id="tags" class="meta-post-cat">
+
+                                            {% for tag in object.tags.all %}
+                                                {% if forloop.counter == 1 %}
+                                                    <i class="fa fa-tags"></i>
+                                                {% endif %}
+                                                <a href="#">{{ tag }}</a>,
+                                            {% endfor %}
+                                        </div>
+                                        <div class="meta-post-date">
+                                            <i class="fa fa-clock-o"></i>{{ object.post_date }}
+                                        </div>
+                                        <div class="meta-post-commetns">
+                                            <i class="fa fa-arrow-up"></i><a href="#">{{ object.total_upvote }}</a>
+                                        </div>
+                                    </div>
+                                    <div class="post_content">
+                                        {{ object.blog|safe|truncatewords_html:40 }}
+                                        <div class="readmore">
+                                            <a href="{{ object.get_absolute_url }}" class="btn">Continue Reading..</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        {% endfor %}
+
+
+                    </div>
+
+                    <div class="pagination">
+                        <ul>
+                            {% if page.has_previous %}
+                                <li><a href="{% url 'core:CategoryView' slug %}?page={{ page.previous_page_number }}"
+                                       class="nav-prev">Prev</a></li>
+                            {% endif %}
+                            <li>
+                                <span class="current">{{ page.number }}</span>
+                            </li>
+                            {% if page.has_next %}
+                                <li><a href="{% url 'core:CategoryView' slug %}?page={{ page.next_page_number }}"
+                                       class="nav-prev">Next</a></li>
+                            {% endif %}
+
+                        </ul>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--/blog-posts-->
+
+
+
+{% endblock %}

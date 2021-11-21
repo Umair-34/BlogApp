@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <section class="page_heading">
+        <div class="container">
+            <div class="text-center">
+                <h1>Share Your <em>Story</em></h1>
+                {#                <p>Lorem ipsum dolor sit amet, wisi paulo ut his, sumo mucius</p>#}
+            </div>
+        </div>
+    </section>
+
+    <!--contact-us-->
+    <section id="contact_us" class="padding_none">
+        <div class="container">
+            <div class="padding_4x4_40 white_bg">
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        <h3>Ask A <em>Question ?</em></h3>
+                        <p>There are many variations of passages of Lorem Ipsum available</p>
+                        <div class="space-30"></div>
+                        <div class="contact_form">
+                            {% for message in messages %}
+                                {% if 'info' in message.tags %}
+                                    <div class="success-message message">
+                                        <div class="alert alert-info">
+                                            <strong>{{ message }}</strong>
+                                            <a style="margin-left: 5rem" href="#" class="del-msg">&times;</a>
+                                        </div>
+                                    </div>
+
+                                {% endif %}
+                            {% endfor %}
+                            <form method="post">
+                                {% csrf_token %}
+
+                                <div class="form-group">
+                                    <input name="name" id="id_name" type="text" placeholder="Name">
+                                </div>
+                                <div class="form-group">
+                                    <input name="email" id="id_email" type="email" placeholder="Email Address">
+                                </div>
+                                <div class="form-group">
+                                    <textarea name="msg" cols="id_msg" rows="" placeholder="Message"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <input name="" type="submit" class="btn active_btn">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-3"></div>
+
+                </div>
+            </div>
+            <div class="space-60"></div>
+        </div>
+    </section>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+
+        $(document).ready(function () {
+            // messages timeout for 10 sec
+            //     setTimeout(function () {
+            //       $('.message').fadeOut('slow');
+            //  }, 10000);
+
+            // delete message
+            $('.del-msg').on('click', function () {
+                $('.del-msg').parent().attr('style', 'display:none;');
+            })
+        });
+    </script>
+{% endblock %}

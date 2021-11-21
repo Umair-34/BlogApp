@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'taggit',
     'debug_toolbar',
-    'hitcount',
+    'django.contrib.postgres',
 ]
 
 MIDDLEWARE = [
@@ -90,6 +90,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'BlogApp.wsgi.application'
 
 SITE_ID = 1
+# ACCOUNT_AUTHENTICATION_METHOD = ('email')
+
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
@@ -154,6 +156,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.User'
 
+
+
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
@@ -162,6 +166,19 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 # summernote setup
+ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
+ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+
+
+LOGIN_REDIRECT_URL = 'core:HomeView'
+ACCOUNT_LOGOUT_REDIRECT_URL = 'core:HomeView'
+
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 

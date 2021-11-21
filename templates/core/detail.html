@@ -177,140 +177,6 @@
 
 
 
-    <!--popular-psots-->
-    <section id="popular-posts" class="padding_none">
-        <div class="text-center">
-            <div class="sect-heading"><p><i class="fa fa-rocket"></i>Popular Posts</p></div>
-        </div>
-
-        <div class="col-sm-4 col-md-2">
-            <div class="popular_posts">
-                <div class="populat_post_image">
-                    <a href="#"> <img src="{% static 'images/populat-post-img-1.jpg' %}" alt="image"> </a>
-                </div>
-                <div class="popular_posts_text">
-                    <div class="populat_post_title">
-                        <h5><a href="#">Industry's <em>standard dummy text</em></a></h5>
-                    </div>
-                    <div class="post-meta-elements">
-                        <div class="meta-post-author">
-                            <i class="fa fa-user"></i><a href="#">Admin</a>
-                        </div>
-                        <div class="meta-post-cat">
-                            <i class="fa fa-tags"></i><a href="#">Motivation</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4 col-md-2">
-            <div class="popular_posts">
-                <div class="populat_post_image">
-                    <a href="#"> <img src="{% static 'images/populat-post-img-2.jpg' %}" alt="image"> </a>
-                </div>
-                <div class="popular_posts_text">
-                    <div class="populat_post_title">
-                        <h5><a href="#">Industry's <em>standard dummy text</em></a></h5>
-                    </div>
-                    <div class="post-meta-elements">
-                        <div class="meta-post-author">
-                            <i class="fa fa-user"></i><a href="#">Admin</a>
-                        </div>
-                        <div class="meta-post-cat">
-                            <i class="fa fa-tags"></i><a href="#">Lifestyle</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4 col-md-2">
-            <div class="popular_posts">
-                <div class="populat_post_image">
-                    <a href="#"> <img src="{% static 'images/populat-post-img-3.jpg' %}" alt="image"> </a>
-                </div>
-                <div class="popular_posts_text">
-                    <div class="populat_post_title">
-                        <h5><a href="#">This is the <em>exact time you left</em></a></h5>
-                    </div>
-                    <div class="post-meta-elements">
-                        <div class="meta-post-author">
-                            <i class="fa fa-user"></i><a href="#">Admin</a>
-                        </div>
-                        <div class="meta-post-cat">
-                            <i class="fa fa-tags"></i><a href="#">Photography</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4 col-md-2">
-            <div class="popular_posts">
-                <div class="populat_post_image">
-                    <a href="#"> <img src="{% static 'images/populat-post-img-4.jpg' %}" alt="image"> </a>
-                </div>
-                <div class="popular_posts_text">
-                    <div class="populat_post_title">
-                        <h5><a href="#">This is the <em>exact time you left</em></a></h5>
-                    </div>
-                    <div class="post-meta-elements">
-                        <div class="meta-post-author">
-                            <i class="fa fa-user"></i>B<a href="#">Admin</a>
-                        </div>
-                        <div class="meta-post-cat">
-                            <i class="fa fa-tags"></i><a href="#">Fashion</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4 col-md-2">
-            <div class="popular_posts">
-                <div class="populat_post_image">
-                    <a href="#"> <img src="{% static 'images/populat-post-img-5.jpg' %}" alt="image"> </a>
-                </div>
-                <div class="popular_posts_text">
-                    <div class="populat_post_title">
-                        <h5><a href="#">Maiores explicabo <em>beatae omnis</em> </a></h5>
-                    </div>
-                    <div class="post-meta-elements">
-                        <div class="meta-post-author">
-                            <i class="fa fa-user"></i><a href="#">Admin</a>
-                        </div>
-                        <div class="meta-post-cat">
-                            <i class="fa fa-tags"></i><a href="#">Collection</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4 col-md-2">
-            <div class="popular_posts">
-                <div class="populat_post_image">
-                    <a href="#"> <img src="{% static 'images/populat-post-img-6.jpg' %}" alt="image"> </a>
-                </div>
-                <div class="popular_posts_text">
-                    <div class="populat_post_title">
-                        <h5><a href="#">Beatae omnis <em>modi laboriosam</em></a></h5>
-                    </div>
-                    <div class="post-meta-elements">
-                        <div class="meta-post-author">
-                            <i class="fa fa-user"></i><a href="#">Admin</a>
-                        </div>
-                        <div class="meta-post-cat">
-                            <i class="fa fa-tags"></i><a href="#">Lifestyle</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </section>
-    <!--/popular-psots-->
 
     <script>
         let form = document.getElementById('commentForm')
@@ -325,8 +191,9 @@
                 data: $("#commentForm").serialize(),
                 datatype: "json",
                 success: function () {
+                     form.reset()
                     $("#append").load(location.href + " #append");
-                    form.reset()
+
                 }
             })
         }

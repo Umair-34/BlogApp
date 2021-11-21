@@ -72,7 +72,7 @@
                         {% if request.user.is_authenticated %}
                             <li><a href="{% url 'account_logout' %}" style="background-color: transparent; !important;" class="active_btn">Logout</a></li>
                         {% else %}
-                            <li><a href="{% url 'account_login' %}">Login</a></li>
+                            <li><a href="{% url 'account_login' %}" >Login</a></li>
                         {% endif %}
                     </ul>
                 </div>
@@ -99,43 +99,8 @@
 
 
 {% endblock %}
-<!--popular-psots-->
-<section id="popular-posts" class="padding_none">
-    <div class="text-center">
-        <div class="sect-heading"><p><i class="fa fa-rocket"></i>Popular Posts</p></div>
-    </div>
-    {% for trend in trends %}
-        <div class="col-sm-4 col-md-2">
-            <div class="popular_posts">
-                <div class="populat_post_image">
-                    <a href="{{ trend.get_absolute_url }}"> <img style="width: 100%; height: 238px"
-                                                                 src="{{ trend.img.url }}" alt="image"> </a>
-                </div>
-                <div class="popular_posts_text">
-                    <div class="populat_post_title">
-                        <h5><a href="{{ trend.get_absolute_url }}">{{ trend.title }}</a></h5>
-                    </div>
-                    <div class="post-meta-elements">
-                        <div class="meta-post-author">
-                            <i class="fa fa-user"></i><a>{{ trend.author.first_name }}{{ trend.author.last_name }}</a>
-                        </div>
-                        <div class="meta-post-cat">
-                            {% for tag in trend.tags.all %}
-                                {% if forloop.counter == 1 %}
-                                    <i class="fa fa-tags"></i>
-                                {% endif %}
-                                <a>{{ tag }}</a>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    {% endfor %}
 
 
-</section>
-<!--/popular-psots-->
 <!-----footer----->
 <footer>
     <div class="container">

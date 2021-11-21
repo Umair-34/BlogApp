@@ -1,0 +1,71 @@
+{% extends 'auth_base.html' %}
+
+{% load static %}
+{% block content %}
+
+    <section class="page_heading">
+        <div class="container">
+            <div class="text-center">
+                <h1>Start Journey With Us</h1>
+                <!-- <p>Lorem ipsum dolor sit amet, wisi paulo ut his, sumo mucius</p> -->
+            </div>
+        </div>
+    </section>
+
+
+    <!--pricing-->
+    <section id="pricing" class="padding_none">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+
+                    <img src="{% static 'images/logo.png' %}">
+                    <p style="width: initial;">A company profile is a written introduction to a company that tells the
+                        reader about its activities, mission, goals and strengths. Often, a company profile includes the
+                        story of the company's founding and describes its products or services. In smaller businesses,
+                        the company owner may write a company profile. However, larger companies can assign an employee
+                        to this task. Company profiles can fulfill the following purposes:
+
+                        Investment plans: Company profiles can give potential investors the information they need to
+                        decide whether to provide funding for a company.
+                        Company websites and social media: You can use a company profile to inform website and social
+                        media users about your company's mission, values and origin.
+                        There is no set length for company profiles. Some profiles are as short as two pages while
+                        others span 10 or more. This length can depend on a number of factors, including the audience
+                        for the company profile, the company's age and its size.
+
+                    </p>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="pricing_wrap">
+                        <h3 style="padding: 20px;">Login</h3>
+                        <div class="space-30"></div>
+                        <div style="padding: 20px 20px 20px 20px ;" class="contact_form">
+                            <form  method="post">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <input id="id_login" name="login" type="email" placeholder="Email Address">
+                                </div>
+                                <div class="form-group">
+                                    <input id="id_password" name="password" type="password" placeholder="Password">
+                                </div>
+
+                                <div class="form-group">
+                                    <input name="" type="submit" class="btn active_btn">
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="space-80 margin-btm-20"></div>
+        </div>
+    </section>
+    <!--/pricing-->
+
+
+{% endblock %}

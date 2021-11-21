@@ -4,19 +4,36 @@
 {% block content %}
     <!--blog-psots-->
     <section id="posts">
-        <div class="container">
-            <div class="category_heading text-center">
-                {% if page.object_list|length == 0 %}
-                    <h1>No Blogs Found Related to <em>{{ slug }}</em></h1>
+        <div class="container my-3">
+            <h2>Search results : </h2>
+            {% if allPosts|length < 1 %}
+                <p>No search results</p>
+                Your search query : <b>{{ query }}</b> did not match any documents. <br>
+                <h4 style="margin-top: 2%">Suggestions:</h4>
+                <ul>
+                    <li>Make sure that all words are spelled correctly.</li>
+                    <li>Try more general keywords.</li>
+                    <li> Try fewer keywords.</li>
+                    <li> Try different keywords.</li>
+                    </li>
+                </ul>
 
-                {% else %}
-                    <h1>Blogs Related to <em>{{ slug }}</em></h1>
-                {% endif %}
-            </div>
+
+            {% endif %}
+        </div>
+        <div class="container">
+            {#                <div class="category_heading text-center">#}
+            {#                    {% if page.object_list|length == 0 %}#}
+            {#                        <h1>No Blogs Found Related to <em>{{ slug }}</em></h1>#}
+            {##}
+            {#                    {% else %}#}
+            {#                        <h1>Blogs Related to <em>{{ slug }}</em></h1>#}
+            {#                    {% endif %}#}
+            {#                </div>#}
             <div class="row">
                 <div class="col-md-12">
                     <div class="two-col-sidebar">
-                        {% for object in page.object_list %}
+                        {% for object in allPosts %}
                             <article class="standard-post-format grid-box">
                                 <div class="post-featured-image">
                                     <a href="#"><img style="width: 100%; height: 276px" src="{{ object.img.url }}"
@@ -53,7 +70,8 @@
                                     <div class="post_content">
                                         {{ object.blog|safe|truncatewords_html:40 }}
                                         <div class="readmore">
-                                            <a href="{{ object.get_absolute_url }}" class="btn">Continue Reading..</a>
+                                            <a href="{{ object.get_absolute_url }}" class="btn">Continue
+                                                Reading..</a>
                                         </div>
                                     </div>
                                 </div>
@@ -62,24 +80,6 @@
 
 
                     </div>
-{% if page|length > 0 %}
-                    <div class="pagination">
-                        <ul>
-                            {% if page.has_previous %}
-                                <li><a href="{% url 'core:CategoryView' slug %}?page={{ page.previous_page_number }}"
-                                       class="nav-prev">Prev</a></li>
-                            {% endif %}
-                            <li>
-                                <span class="current">{{ page.number }}</span>
-                            </li>
-                            {% if page.has_next %}
-                                <li><a href="{% url 'core:CategoryView' slug %}?page={{ page.next_page_number }}"
-                                       class="nav-prev">Next</a></li>
-                            {% endif %}
-
-                        </ul>
-                    </div>
-{% endif %}
 
                 </div>
             </div>

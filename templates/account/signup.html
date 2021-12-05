@@ -1,0 +1,41 @@
+{% extends 'auth_base.html' %}
+
+{% load static %}
+{% block content %}
+
+
+    <div class="col-md-6">
+        <div class="pricing_wrap">
+            <h3 style="padding: 20px;">Signup</h3>
+            <div style="padding: 20px 20px 20px 20px ;" class="contact_form">
+                <form method="post" action="{% url 'account_signup' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="E-mail address"
+                               autocomplete="email" required id="id_email">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password1" placeholder="Password"
+                               autocomplete="new-password" required id="id_password1">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password2"
+                               placeholder="Confirm Password" required
+                               id="id_password2">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" class="btn active_btn">
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+{% endblock %}
+

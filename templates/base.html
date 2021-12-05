@@ -68,7 +68,7 @@
                             </ul>
                         </li>
                         <li><a href="{% url 'core:ContactUsView' %}">Contact-Us</a></li>
-                        <li><a href="">Write Blog for Us</a></li>
+                        <li><a href="{% url 'account_signup' %}">Write Blog for Us</a></li>
                         {% if request.user.is_authenticated %}
                             <li><a href="{% url 'account_logout' %}" style="background-color: transparent; !important;" class="active_btn">Logout</a></li>
                         {% else %}

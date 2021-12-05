@@ -1,0 +1,27 @@
+{% extends 'auth_base.html' %}
+{% load i18n %}
+
+{% load static %}
+
+{% block content %}
+
+
+    <div class="col-md-6">
+        <div class="pricing_wrap">
+            <h3 style="padding: 20px;">{% trans "Verify Your E-mail Address" %}</h3>
+            <div style="padding: 0px 20px 20px 20px ;" class="contact_form">
+
+                <p>{% blocktrans %}We have sent an e-mail to you for verification. Follow the link provided to finalize
+                    the signup process. Please contact us if you do not receive it within a few
+                    minutes.{% endblocktrans %}</p>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+{% endblock %}

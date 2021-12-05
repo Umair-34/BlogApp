@@ -156,8 +156,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.User'
 
-
-
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
@@ -174,11 +172,22 @@ ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 
 
 LOGIN_REDIRECT_URL = 'core:HomeView'
 ACCOUNT_LOGOUT_REDIRECT_URL = 'core:HomeView'
 
+# Email Backend
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'quantchefin@gmail.com'
+EMAIL_HOST_PASSWORD = 'dvaquvofmgwakkxv'
+
+DEFAULT_FROM_EMAIL = 'noreply<property.contract.manage@gmail.com>'
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 

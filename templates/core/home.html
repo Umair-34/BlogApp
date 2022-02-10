@@ -7,55 +7,51 @@
     <section id="myCarousel" class="carousel slide post-slider">
         <div class="container">
             <div class="carousel-inner">
+                {% for object in page.object_list %}
+                {% if forloop.counter == 1 %}
                 <div class="item active">
-                    <div class="post-slider-image"><img alt="car1" src="{% static 'images/slider-img-1.jpg' %}"></div>
+                    <div class="post-slider-image"><img alt="car1" src="{{ object.img.url }}"></div>
                     <div class="post-slider-text">
                         <div class="post-slider-title">
-                            <h2><a href="#">Anything embarrassing <em>hidden middle</em></a></h2>
+                            <h2><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></h2>
                         </div>
                         <div class="post-meta-elements">
                             <div class="meta-post-author">
-                                <i class="fa fa-user"></i><a href="#">By:Admin</a>
-                            </div>
-                            <div class="meta-post-cat">
-                                <i class="fa fa-tags"></i><a href="#">Lifestyle</a>
+                                <i class="fa fa-user"></i><a href="#">By:{{ object.author.first_name }} {{ object.author.last_name }}</a>
                             </div>
                             <div class="meta-post-date">
-                                <i class="fa fa-clock-o"></i>Jan 25, 2016
+                                <i class="fa fa-clock-o"></i>{{ object.post_date }}
                             </div>
                         </div>
                         <div class="post-slider-content">
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                                has been the industry's standard dummy text ever since the 1500s, when an unknown
-                                printer took a galley.</p>
+                            {{ object.blog|safe|truncatewords_html:20 }}
                         </div>
                     </div>
                 </div>
+                {% else %}
                 <div class="item">
-                    <div class="post-slider-image"><img alt="car1" src="{% static 'images/slider-post-image-2.jpg' %}">
+                    <div class="post-slider-image"><img alt="car1" src="{{ object.img.url }}">
                     </div>
                     <div class="post-slider-text">
                         <div class="post-slider-title">
-                            <h2><a href="#">The standard <em>Lorem Ipsum used</em></a></h2>
+                            <h2><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></h2>
                         </div>
                         <div class="post-meta-elements">
                             <div class="meta-post-author">
-                                <i class="fa fa-user"></i><a href="#">By:Admin</a>
+                                <i class="fa fa-user"></i><a href="#">By:{{ object.author.first_name }} {{ object.author.last_name }}</a>
                             </div>
-                            <div class="meta-post-cat">
-                                <i class="fa fa-tags"></i><a href="#">Lifestyle</a>
-                            </div>
+                          
                             <div class="meta-post-date">
-                                <i class="fa fa-clock-o"></i>Jan 25, 2016
+                                <i class="fa fa-clock-o"></i>{{ object.post_date }}
                             </div>
                         </div>
                         <div class="post-slider-content">
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                                has been the industry's standard dummy text ever since the 1500s, when an unknown
-                                printer took a galley.</p>
+                            {{ object.blog|safe|truncatewords_html:20 }}
                         </div>
                     </div>
-                </div>
+                </div> 
+                {% endif %}
+                {% endfor %}
             </div>
             <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span
                     class="glyphicon glyphicon-chevron-left"></span></a>
@@ -74,14 +70,14 @@
                         {% for object in page.object_list %}
                             <article class="standard-post-format grid-box">
                                 <div class="post-featured-image">
-                                    <a href="#"><img style="width: 364px; height: 182px" src="{{ object.img.url }}"
+                                    <a href="{{ object.get_absolute_url }}"><img style="width: 364px; height: 182px" src="{{ object.img.url }}"
                                                      alt="image"></a>
                                 </div>
 
                                 <div class="the-post">
                                     <div class="post-title">
-                                        {#                                        <h2><a href="#">Inside The Garden & <em>Blooming Flowers</em></a></h2>#}
-                                        <h2><a href="#">{{ object.title }}</a></h2>
+                                        <!-- {#                                        <h2><a href="#">Inside The Garden & <em>Blooming Flowers</em></a></h2>#} -->
+                                        <h2><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></h2>
                                     </div>
                                     <div class="post-meta-elements">
                                         <div class="meta-post-author">
@@ -140,90 +136,8 @@
 
                 <aside class="col-md-4">
                     <div class="sidebar">
-                        <div class="sidebar_widget grid-box widgetbox">
-                            <div class="about_me">
-                                <h6 class="sidebar-title"><span>About <em>Me</em></span></h6>
-                                <div class="about_img"><img src="{% static 'images/morena-girl.jpg' %}" alt="image">
-                                </div>
-                                <div class="about_text">
-                                    <h5>Shane <em>Doe</em></h5>
-                                    <div class="subtitle">Fashionista &amp; Photographer</div>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                        Ipsum has been the industry's standard dummy text.</p>
-                                    <a href="about-me.html" class="btn">Read More.</a>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="sidebar_widget grid-box widgetbox">
-                            <h6 class="sidebar-title"><span>Recent <em>Posts</em></span></h6>
-                            <!---latest-post-1--->
-                            <div class="latest-post">
-                                <div class="latest-post-img">
-                                    <a href="#"><img alt="image" src="{% static 'images/latest-post-img-1.jpg' %}"> </a>
-                                </div>
-                                <div class="latest-post-content">
-                                    <div class="latest-post-title">
-                                        <h6><a href="#">Lorem Ipsum has <em>industry's dummy</em></a></h6>
-                                    </div>
-                                    <div class="post-meta-elements">
-                                        <div class="meta-post-cat">
-                                            <i class="fa fa-tags"></i><a href="#">Travel</a>
-                                        </div>
-                                        <div class="meta-post-date">
-                                            <i class="fa fa-clock-o"></i> Jan 25, 2016
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                            </div>
-                            <!---/latest-post-1--->
-                            <!---latest-post-2--->
-                            <div class="latest-post">
-                                <div class="latest-post-img">
-                                    <a href="#"><img alt="image" src="{% static 'images/latest-post-img-2.jpg' %}"> </a>
-                                </div>
-                                <div class="latest-post-content">
-                                    <div class="latest-post-title">
-                                        <h6><a href="#">There are many <em>variations passages</em></a></h6>
-                                    </div>
-                                    <div class="post-meta-elements">
-                                        <div class="meta-post-cat">
-                                            <i class="fa fa-tags"></i><a href="#">Lifestyle</a>
-                                        </div>
-                                        <div class="meta-post-date">
-                                            <i class="fa fa-clock-o"></i> Jan 25, 2016
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                            </div>
-                            <!---/latest-post-2--->
-                            <!---latest-post-3--->
-                            <div class="latest-post">
-                                <div class="latest-post-img">
-                                    <a href="#"><img alt="image" src="{% static 'images/latest-post-img-3.jpg' %}"> </a>
-                                </div>
-                                <div class="latest-post-content">
-                                    <div class="latest-post-title">
-                                        <h6><a href="#">Lorem Ipsum has <em>industry's dummy</em></a></h6>
-                                    </div>
-                                    <div class="post-meta-elements">
-                                        <div class="meta-post-cat">
-                                            <i class="fa fa-tags"></i><a href="#">Fashion</a>
-                                        </div>
-                                        <div class="meta-post-date">
-                                            <i class="fa fa-clock-o"></i> Jan 25, 2016
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                            </div>
-                            <!---/latest-post-3--->
-                        </div>
+                       
 
                         <div class="sidebar_widget grid-box widgetbox">
                             <h6 class="sidebar-title"><span>Categories</span></h6>

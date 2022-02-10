@@ -1,4 +1,5 @@
 import datetime
+from random import randint
 
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
@@ -12,7 +13,7 @@ from taggit.models import Tag
 def PopularPosts():
     week_ago = datetime.date.today() - datetime.timedelta(days=7)
     trends = BlogPost.objects.filter(post_date__gte=week_ago).order_by('-id')[:6]
-    if len(trends) > 6:
+    if len(trends) < 6:
         month_ago = datetime.date.today() - datetime.timedelta(days=30)
         trends = BlogPost.objects.filter(post_date__gte=month_ago).order_by('-id')[:6]
     return trends
@@ -22,7 +23,7 @@ def HomeView(request):
     query_set = BlogPost.objects.all().order_by('-id')
     trends = PopularPosts()
     categories_qs = Categories.objects.all()
-    paginator = Paginator(query_set, 6)
+    paginator = Paginator(query_set, 4)
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number)
 

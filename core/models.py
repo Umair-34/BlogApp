@@ -3,6 +3,7 @@ from accounts.models import User
 from django.utils.text import slugify
 from taggit.managers import TaggableManager
 from django.urls import reverse
+from django.utils import timezone
 
 
 # Create your models here.
@@ -70,5 +71,3 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.email + " | " + self.message
-
-

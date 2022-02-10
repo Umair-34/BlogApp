@@ -28,8 +28,8 @@
     <link rel="apple-touch-icon-precomposed"
           href="{% static 'images/favicon-icon/apple-touch-icon-57-precomposed.png' %}">
     <link rel="shortcut icon" href="{% static 'images/favicon-icon/favicon.png' %}">
-
-
+   <style> h3 { font-family: "Brush Script MT", cursive; font-size: 26px; font-style: normal; font-variant: normal; }
+    </style>
 </head>
 <body>
 
@@ -39,7 +39,7 @@
         <div class="row">
             <div class="col-md-2">
                 <div class="logo">
-                    <a href="index-2.html"><img src="{% static 'images/logo.png' %}" alt="logo-image"></a>
+                    <h3>Blog Post</h3>
                 </div>
             </div>
 
@@ -53,9 +53,9 @@
                         <span class="icon-bar"></span>
                     </button>
                 </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav text-right">
-                        <li class="dropdown">
+                <div  class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav text-center">
+                        <li >
                             <a href="{% url 'core:HomeView' %}">Home</a>
                         </li>
                         <li class="dropdown">
@@ -68,12 +68,12 @@
                             </ul>
                         </li>
                         <li><a href="{% url 'core:ContactUsView' %}">Contact-Us</a></li>
-                        <li><a href="{% url 'account_signup' %}">Write Blog for Us</a></li>
+                        <!-- <li><a href="{% url 'account_signup' %}">Write Blog for Us</a></li>
                         {% if request.user.is_authenticated %}
                             <li><a href="{% url 'account_logout' %}" style="background-color: transparent; !important;" class="active_btn">Logout</a></li>
                         {% else %}
                             <li><a href="{% url 'account_login' %}">Login</a></li>
-                        {% endif %}
+                        {% endif %} -->
                     </ul>
                 </div>
             </div>
@@ -138,7 +138,7 @@
 <!--/popular-psots-->
 <!-----footer----->
 <footer>
-    <div class="container">
+    <!-- <div class="container">
         <div class="row">
             <div class="col-md-5">
                 <div class="footer_logo">
@@ -191,24 +191,20 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="container">
         <div class="follow_us">
             <ul>
                 <li><a target="_blank" href="#"><i class="fa fa-facebook"></i>FACEBOOK</a></li>
                 <li><a id="hidden"
-                       href="https://www.instagram.com/share?url=http://devbrian.com{{ request.get_full_path|urlencode }}"
+                       href="#"
                        class="instagram-link"><i class="fa fa-instagram"></i> Instagram</a>
                 </li>
                 <li><a target="_blank" href="#"><i class="fa fa-twitter"></i>TWITTER</a></li>
                 <li><a target="_blank" href="#"><i class="fa fa-youtube"></i>YOUTUBE</a></li>
                 <li><a target="_blank" href="#"><i class="fa fa-google-plus"></i>GOOGLE+</a></li>
-                <li><a target="_blank" href="#"><i class="fa fa-vimeo-square"></i>VIMEO</a></li>
-                <li><a target="_blank" href="#"><i class="fa fa-dribbble"></i>DRIBBBLE</a></li>
+                
             </ul>
-        </div>
-        <div class="footer-1-copyright text-center">
-            <p>Copyright &copy; 2016 Zedthemes.com All Rights Reserved. </p>
         </div>
     </div>
 </footer>

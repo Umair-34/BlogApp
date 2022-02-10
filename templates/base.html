@@ -200,31 +200,7 @@
     </div>
 </footer>
 <!-----/footer---->
-<script>
-    var form1 = document.getElementById('subscribeform')
 
-    form1.addEventListener('submit', stopReload)
-
-    function stopReload(e) {
-        e.preventDefault()
-        $.ajax({
-            type: "POST",
-            url: "{% url 'core:AddSubscriberView' %}",
-            data: $("#subscribeform").serialize(),
-            datatype: "json",
-            success: function (data1) {
-
-                if (data1.added == "True") {
-                    alert("Subscribed to newsletter")
-                } else {
-                    alert("Already Subscribed to newsletter")
-                }
-                form1.reset()
-
-            }
-        })
-    }
-</script>
 
 <script src="{% static 'js/jquery.min.js' %}"></script>
 <script src="{% static 'js/custom.js' %}"></script>

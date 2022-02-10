@@ -91,10 +91,10 @@ DATABASES = {
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': BASE_DIR / 'db.sqlite3',
         'ENGINE': 'django.db.backends.postgresql_psycopg2',  # postgress db credentials for heroku db
-        'NAME': 'dc795cmdc53cct',
-        'USER': 'ycpplnbtkxwfny',
-        'PASSWORD': 'c69329ab52290c23c23462eabfcbcb3f6bc61989514098d3621ac091cab96776',
-        'HOST': 'ec2-34-194-100-156.compute-1.amazonaws.com',
+        'NAME': 'd3ge8evkb7alia',
+        'USER': 'ftawxsxdktakye',
+        'PASSWORD': '5445685da2118a0c210c391f4f1040de938a55745b2f3178a9706efcd06230c5',
+        'HOST': 'ec2-18-215-8-186.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }
